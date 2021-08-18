@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d21c616878bc1c4aaaa913243d32f1e, type: 3}
+  m_Name: GraphicsConfig_Default
+  m_EditorClassIdentifier: 
+  counterNumbers:
+  - {fileID: -7854887124437309554, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: 888543878431575959, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: 5884796852889516770, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: 3385786726438812929, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: 8277371902487382695, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: 4372274738380275734, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: 6054787393839982911, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: -4252078170852815210, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: -4686346252462586710, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: -5025358808780660945, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  squareBlankUp: {fileID: -4676312498594153893, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  squareBlankDown: {fileID: 4217753130605703074, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  squareFlag: {fileID: 121331481904893093, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  squareMineDefault: {fileID: 184946029703471571, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  squareMineClicked: {fileID: -8613915638125691489, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  squareAdjacentNumbers:
+  - {fileID: 4217753130605703074, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: 4235129544921232429, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: -8727053297706094103, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: 4586151890201203340, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: 5233099765558369132, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: -6651267989503053728, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: 6016628278432231457, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: -2131012625376159445, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  - {fileID: 951351674231977983, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  smileyButtonDefaultUp: {fileID: -563766161297670313, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  smileyButtonDefaultDown: {fileID: 6982794068969259771, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  smileyButtonSquareClick: {fileID: -8915070395707579324, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  smileyButtonWin: {fileID: 290764827026373662, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
+  smileyButtonLose: {fileID: -8519376088247647189, guid: 399fe5d1527e4a449bbeef72e12f8a9c, type: 3}
