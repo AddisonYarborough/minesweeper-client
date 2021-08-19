@@ -28,7 +28,7 @@ namespace Minesweeper.Core {
 
         private async void StartGame() {
             // Attempt to start the game with the server and wait for a response
-            StartGameCallbackHandler startGameResponse = await _api.StartGameAsync(_levelConfig);
+            StartGameCallbackHandler startGameResponse = await MinesweeperApi.StartGameAsync(_levelConfig);
 
             // If the request was successful, cache the game ID
             if (startGameResponse.WasSuccessful) {
@@ -49,7 +49,7 @@ namespace Minesweeper.Core {
 
         private async void SelectGridPosition(Vector2Int gridPosition) {
             SelectGridPositionCallbackHandler selectGridPositionResponse =
-                await _api.SelectGridPositionAsync(_gameId, gridPosition.x, gridPosition.y);
+                await MinesweeperApi.SelectGridPositionAsync(_gameId, gridPosition.x, gridPosition.y);
 
             if (!selectGridPositionResponse.WasSuccessful) {
                 _controller.RestartGame();

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace Minesweeper.MVC {
     public class GameBoardView : MonoBehaviour {
         public event Action onPlayButtonClick = default;
-        public event Action onRestartButtonClick = default;
+        public event Action onRetryButtonClick = default;
 
         /// <summary>
         ///  A collection of all square views on the game board grid.
@@ -49,7 +49,7 @@ namespace Minesweeper.MVC {
         private void OnEnable() {
             // Register all difficulty level buttons
             _playButton.onClick.AddListener(HandleOnPlayButtonClick);
-            _retryButton.onClick.AddListener(HandleOnRestartButtonClick);
+            _retryButton.onClick.AddListener(HandleOnRetryButtonClick);
         }
 
         private void OnDisable() {
@@ -68,7 +68,10 @@ namespace Minesweeper.MVC {
             // Start listening to smiley button
             _smileyButtonDisplay.onClicked += HandleOnSmileyButtonDisplayClick;
 
+            // The flag counter will start with the total number of bombs on the board, decrement
+            // as flags are placed, and increment when they are retrieved
             _flagCounterDisplay.Init(_graphicsConfig);
+
             _gameTimerDisplay.Init(_graphicsConfig);
             _smileyButtonDisplay.Init(_graphicsConfig);
         }
@@ -133,8 +136,8 @@ namespace Minesweeper.MVC {
             onPlayButtonClick?.Invoke();
         }
 
-        private void HandleOnRestartButtonClick() {
-            onRestartButtonClick?.Invoke();
+        private void HandleOnRetryButtonClick() {
+            onRetryButtonClick?.Invoke();
         }
 
         public void SetPlayButtonDisplayVisible(bool state) {

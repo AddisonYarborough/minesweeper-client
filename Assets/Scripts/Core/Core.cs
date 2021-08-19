@@ -22,19 +22,19 @@ namespace Minesweeper.Core {
 
         private void OnEnable() {
             _gameBoardView.onPlayButtonClick += HandleOnPlayButtonClick;
-            _gameBoardView.onRestartButtonClick += HandleOnRestartButtonClick;
+            _gameBoardView.onRetryButtonClick += HandleONRetryButtonClick;
         }
 
         private void OnDisable() {
             _gameBoardView.onPlayButtonClick -= HandleOnPlayButtonClick;
-            _gameBoardView.onRestartButtonClick -= HandleOnRestartButtonClick;
+            _gameBoardView.onRetryButtonClick -= HandleONRetryButtonClick;
         }
 
         private async void Start() {
             _gameBoardView.SetPlayButtonDisplayVisible(false);
             _gameBoardView.SetNoConnectionDisplayVisible(false);
 
-            ServerTestCallbackHandler serverTestResponse = await _api.ServerTestAsync();
+            ServerTestCallbackHandler serverTestResponse = await MinesweeperApi.ServerTestAsync();
 
             _IsConnected = serverTestResponse.WasSuccessful;
 
@@ -46,7 +46,7 @@ namespace Minesweeper.Core {
             _ = new GameRunner(_api, _levelConfig, _graphicsConfig, _gameBoardView);
         }
 
-        private void HandleOnRestartButtonClick() {
+        private void HandleONRetryButtonClick() {
             Start();
         }
     }

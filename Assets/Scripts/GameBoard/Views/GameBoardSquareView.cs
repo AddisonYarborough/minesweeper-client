@@ -15,6 +15,8 @@ namespace Minesweeper.MVC {
         public event Action<GameBoardSquareView, PointerEventData> onPointerEnter = default;
         public event Action<GameBoardSquareView, PointerEventData> onPointerExit = default;
 
+        public event Action<GameBoardSquareView, bool> onFlagged = default;
+
         /// <summary>
         /// The current position of this square on the game board grid.
         /// </summary>
@@ -87,6 +89,8 @@ namespace Minesweeper.MVC {
 
             // Update to our flag sprite
             _image.sprite = IsFlagged ? _flagStateSprite : _blankUpStateSprite;
+
+            onFlagged?.Invoke(this, state);
         }
 
         /// <summary>
@@ -129,6 +133,11 @@ namespace Minesweeper.MVC {
             // Ignore if this is a bomb or otherwise not a numbered square
             if ((int)viewState < 0) {
                 return;
+            }
+
+            // Un-flag this square since it's now visible
+            if (IsFlagged) {
+                Flag(false);
             }
 
             // Set our visual display to a 0-9 sprite

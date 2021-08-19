@@ -34,6 +34,7 @@ namespace Minesweeper.MVC {
 
         public void CreateBoard() {
             _view.Init(this, _graphicsConfig);
+            _view.SetFlagCounter(_flagCount = _levelConfig.BombQuantity);
             _view.CreateGameBoardGrid(_levelConfig.Width, _levelConfig.Height);
         }
 
@@ -65,6 +66,7 @@ namespace Minesweeper.MVC {
             squareView.onPointerClick += HandleOnGameBoardSquarePointerClick;
             squareView.onPointerEnter += HandleOnGameBoardSquarePointerEnter;
             squareView.onPointerExit += HandleOnGameBoardSquarePointerExit;
+            squareView.onFlagged += HandleOnGameBoardSquareFlagged;
         }
 
         public void UnlistenToPointerEventsForGameBoardSquare(GameBoardSquareView squareView) {
@@ -73,6 +75,7 @@ namespace Minesweeper.MVC {
             squareView.onPointerClick -= HandleOnGameBoardSquarePointerClick;
             squareView.onPointerEnter -= HandleOnGameBoardSquarePointerEnter;
             squareView.onPointerExit -= HandleOnGameBoardSquarePointerExit;
+            squareView.onFlagged -= HandleOnGameBoardSquareFlagged;
         }
 
         private void HandleOnGameBoardSquarePointerDown(GameBoardSquareView squareView, PointerEventData eventData) {
@@ -107,11 +110,10 @@ namespace Minesweeper.MVC {
             }
             else {
                 // Ignore if we have no more flags to place if the user is trying to place one
-                if (!squareView.IsFlagged && _flagCount >= _levelConfig.BombQuantity) {
+                if (!squareView.IsFlagged && _flagCount < 1) {
                     return;
                 }
 
-                _view.SetFlagCounter(squareView.IsFlagged ? --_flagCount : ++_flagCount);
                 squareView.Flag(!squareView.IsFlagged);
             }
         }
@@ -135,6 +137,11 @@ namespace Minesweeper.MVC {
             if (squareView.IsPointerDown) {
                 squareView.SetBlank(isPointerDown: false);
             }
+        }
+
+        private void HandleOnGameBoardSquareFlagged(GameBoardSquareView squareView, bool isFlagged) {
+            _flagCount += (isFlagged) ? -1 : 1;
+            _view.SetFlagCounter(_flagCount);
         }
     }
 }
