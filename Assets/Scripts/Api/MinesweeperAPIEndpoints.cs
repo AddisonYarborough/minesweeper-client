@@ -23,7 +23,7 @@ namespace Minesweeper.API {
 
         /// <summary>
         /// Formats the given arguments into a
-        /// for use with <see cref="MinesweeperApi.StartGameAsync"/>.
+        /// URI for use with <see cref="MinesweeperApi.StartGameAsync"/>.
         /// </summary>
         /// <param name="width">The width of the game board grid</param>
         /// <param name="height">The height of the game board grid</param>
