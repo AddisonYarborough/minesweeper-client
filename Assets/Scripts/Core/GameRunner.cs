@@ -13,12 +13,10 @@ namespace Minesweeper.Core {
         private readonly GameBoardView _view = default;
         private readonly LevelConfig _levelConfig = default;
         private readonly GraphicsConfig _graphicsConfig = default;
-        private readonly MinesweeperApi _api = default;
         private string _gameId = default;
 
-        public GameRunner(MinesweeperApi api, LevelConfig levelConfig, GraphicsConfig graphicsConfig,
+        public GameRunner(LevelConfig levelConfig, GraphicsConfig graphicsConfig,
             GameBoardView view) {
-            this._api = api;
             this._levelConfig = levelConfig;
             this._graphicsConfig = graphicsConfig;
             this._view = view;

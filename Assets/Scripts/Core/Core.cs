@@ -7,10 +7,6 @@ namespace Minesweeper.Core {
     /// The entry point for this application.
     /// </summary>
     public class Core : MonoBehaviour {
-        private bool _IsConnected { get; set; } = false;
-
-        private readonly MinesweeperApi _api = new MinesweeperApi();
-
         [SerializeField]
         private GameBoardView _gameBoardView = default;
 
@@ -22,12 +18,12 @@ namespace Minesweeper.Core {
 
         private void OnEnable() {
             _gameBoardView.onPlayButtonClick += HandleOnPlayButtonClick;
-            _gameBoardView.onRetryButtonClick += HandleONRetryButtonClick;
+            _gameBoardView.onRetryButtonClick += HandleOnRetryButtonClick;
         }
 
         private void OnDisable() {
             _gameBoardView.onPlayButtonClick -= HandleOnPlayButtonClick;
-            _gameBoardView.onRetryButtonClick -= HandleONRetryButtonClick;
+            _gameBoardView.onRetryButtonClick -= HandleOnRetryButtonClick;
         }
 
         private async void Start() {
@@ -36,17 +32,17 @@ namespace Minesweeper.Core {
 
             ServerTestCallbackHandler serverTestResponse = await MinesweeperApi.ServerTestAsync();
 
-            _IsConnected = serverTestResponse.WasSuccessful;
+            bool isConnected = serverTestResponse.WasSuccessful;
 
-            _gameBoardView.SetNoConnectionDisplayVisible(!_IsConnected);
-            _gameBoardView.SetPlayButtonDisplayVisible(_IsConnected);
+            _gameBoardView.SetNoConnectionDisplayVisible(!isConnected);
+            _gameBoardView.SetPlayButtonDisplayVisible(isConnected);
         }
 
         private void HandleOnPlayButtonClick() {
-            _ = new GameRunner(_api, _levelConfig, _graphicsConfig, _gameBoardView);
+            _ = new GameRunner(_levelConfig, _graphicsConfig, _gameBoardView);
         }
 
-        private void HandleONRetryButtonClick() {
+        private void HandleOnRetryButtonClick() {
             Start();
         }
     }
