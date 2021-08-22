@@ -61,6 +61,8 @@ namespace Minesweeper.Core {
                 case GameState.Won:
                     _controller.UpdateBoard(selectGridPositionResponse.gameBoardModel.RevealedSquares);
                     _controller.GameWon();
+                    // Since we reload the level each time we play, we can supply our game time like this
+                    PlayerPrefsUtility.SetBestTime((int)Mathf.Floor(Time.timeSinceLevelLoad));
                     break;
                 case GameState.Lost:
                     _controller.GameLost(selectGridPositionResponse.gameBoardModel, gridPosition);

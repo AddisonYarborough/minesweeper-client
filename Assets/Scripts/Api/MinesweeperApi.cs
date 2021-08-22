@@ -8,7 +8,7 @@ namespace Minesweeper.API {
     /// <summary>
     /// The class that interfaces with the back-end endpoints via <see cref="GameRunner"/>
     /// </summary>
-    public class MinesweeperApi {
+    public static class MinesweeperApi {
         public static async Task<ServerTestCallbackHandler> ServerTestAsync() {
             // Create the URI for the GET request
             string uri = Endpoints.GetServerTestUri();

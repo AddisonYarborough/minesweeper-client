@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 namespace Minesweeper.MVC {
     public class GameBoardView : MonoBehaviour {
-        public event Action onPlayButtonClick = default;
-        public event Action onRetryButtonClick = default;
-
         /// <summary>
         ///  A collection of all square views on the game board grid.
         /// </summary>
@@ -20,18 +17,11 @@ namespace Minesweeper.MVC {
         [SerializeField]
         private GameObject _gameBoardSquarePrefab = default;
 
-        [Header("Buttons"), SerializeField]
-        private Button _playButton = default;
-
-        // If we're not connected to the server, this will allow the user to retry a connection
-        [SerializeField]
-        private Button _retryButton = default;
-
         [Header("Displays"), SerializeField]
-        private GameObject _noConnectionDisplay = default;
+        private ButtonTextDisplay _noConnectionDisplay = default;
 
         [SerializeField]
-        private GameObject _playButtonDisplay = default;
+        private ButtonTextDisplay _playButtonDisplay = default;
 
         [SerializeField]
         private SmileyButtonDisplay _smileyButtonDisplay = default;
@@ -46,21 +36,6 @@ namespace Minesweeper.MVC {
 
         private GraphicsConfig _graphicsConfig = default;
 
-        private void OnEnable() {
-            // Register all difficulty level buttons
-            _playButton.onClick.AddListener(HandleOnPlayButtonClick);
-            _retryButton.onClick.AddListener(HandleOnRetryButtonClick);
-        }
-
-        private void OnDisable() {
-            // Unregister buttons
-            _playButton.onClick.RemoveAllListeners();
-            _retryButton.onClick.RemoveAllListeners();
-
-            // Stop listening to smiley button
-            _smileyButtonDisplay.onClicked -= HandleOnSmileyButtonDisplayClick;
-        }
-
         public void Init(GameBoardController controller, GraphicsConfig graphicsConfig) {
             this._gameBoardController = controller;
             this._graphicsConfig = graphicsConfig;
@@ -71,7 +46,6 @@ namespace Minesweeper.MVC {
             // The flag counter will start with the total number of bombs on the board, decrement
             // as flags are placed, and increment when they are retrieved
             _flagCounterDisplay.Init(_graphicsConfig);
-
             _gameTimerDisplay.Init(_graphicsConfig);
             _smileyButtonDisplay.Init(_graphicsConfig);
         }
@@ -130,23 +104,14 @@ namespace Minesweeper.MVC {
             _flagCounterDisplay.SetCounter(flagCount);
         }
 
-        private void HandleOnPlayButtonClick() {
-            SetPlayButtonDisplayVisible(false);
+        public void ShowPlayButtonDisplay(Action onClick) =>
+            _playButtonDisplay.Show($"Best Score: {PlayerPrefsUtility.GetBestTime()}", onClick);
 
-            onPlayButtonClick?.Invoke();
-        }
+        public void HidePlayButtonDisplay() => _playButtonDisplay.Hide();
 
-        private void HandleOnRetryButtonClick() {
-            onRetryButtonClick?.Invoke();
-        }
+        public void ShowNoConnectionDisplay(Action onClick) => _noConnectionDisplay.Show("No Connection", onClick);
 
-        public void SetPlayButtonDisplayVisible(bool state) {
-            _playButtonDisplay.SetActive(state);
-        }
-
-        public void SetNoConnectionDisplayVisible(bool state) {
-            _noConnectionDisplay.SetActive(state);
-        }
+        public void HideNoConnectionDisplay() => _noConnectionDisplay.Hide();
 
         public void SetSmileyButtonDisplayState(SmileyButtonDisplayState displayState) {
             if (_gameBoardController.IsGameOver) {

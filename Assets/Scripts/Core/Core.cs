@@ -16,34 +16,33 @@ namespace Minesweeper.Core {
         [SerializeField]
         private GraphicsConfig _graphicsConfig = default;
 
-        private void OnEnable() {
-            _gameBoardView.onPlayButtonClick += HandleOnPlayButtonClick;
-            _gameBoardView.onRetryButtonClick += HandleOnRetryButtonClick;
-        }
-
-        private void OnDisable() {
-            _gameBoardView.onPlayButtonClick -= HandleOnPlayButtonClick;
-            _gameBoardView.onRetryButtonClick -= HandleOnRetryButtonClick;
-        }
-
         private async void Start() {
-            _gameBoardView.SetPlayButtonDisplayVisible(false);
-            _gameBoardView.SetNoConnectionDisplayVisible(false);
+            _gameBoardView.HidePlayButtonDisplay();
+            _gameBoardView.HideNoConnectionDisplay();
 
+            // Call to the server to make sure we can play the game
             ServerTestCallbackHandler serverTestResponse = await MinesweeperApi.ServerTestAsync();
 
+            // Determine whether we're connected to the server
             bool isConnected = serverTestResponse.WasSuccessful;
 
-            _gameBoardView.SetNoConnectionDisplayVisible(!isConnected);
-            _gameBoardView.SetPlayButtonDisplayVisible(isConnected);
-        }
-
-        private void HandleOnPlayButtonClick() {
-            _ = new GameRunner(_levelConfig, _graphicsConfig, _gameBoardView);
+            // If we're connected, hide the no connection display and show the play button
+            if (isConnected) {
+                _gameBoardView.ShowPlayButtonDisplay(HandleOnPlayButtonClick);
+            }
+            else {
+                // If we're not, show the no connection display and let the user retry connection
+                _gameBoardView.ShowNoConnectionDisplay(HandleOnRetryButtonClick);
+            }
         }
 
         private void HandleOnRetryButtonClick() {
             Start();
+        }
+
+        private void HandleOnPlayButtonClick() {
+            _gameBoardView.HidePlayButtonDisplay();
+            _ = new GameRunner(_levelConfig, _graphicsConfig, _gameBoardView);
         }
     }
 }
